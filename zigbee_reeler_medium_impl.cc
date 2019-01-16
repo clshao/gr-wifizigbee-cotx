@@ -98,6 +98,8 @@ zigbee_reeler_medium_impl::general_work (int noutput_items,
 			ninput = offset - nread;
 		} else {
 			d_length = pmt::to_long(d_tags.front().value);
+			dout << "ZigBee packet is received." << std::endl;
+			dout << "Wi-Fi packet is received." << std::endl;
 		}
 	}
 
@@ -134,8 +136,8 @@ zigbee_reeler_medium_impl::general_work (int noutput_items,
 		d_amp_q = abs_max(d_buf_img + d_cnt - 80);
 			//Amplitude estimation method to be enhanced.
 
-		dout << "amp_i: " << d_amp_i << std::endl;
-		dout << "amp_q: " << d_amp_q << std::endl;
+		//dout << "amp_i: " << d_amp_i << std::endl;
+		//dout << "amp_q: " << d_amp_q << std::endl;
 
 		make_zigbee_header(d_zigbee_hdr, d_amp_i, d_amp_q);
 		d_pkt_spl_num = make_packet(d_zigbee, d_wifi, d_cnt, d_amp_i, d_amp_q);
@@ -156,7 +158,7 @@ zigbee_reeler_medium_impl::general_work (int noutput_items,
 			d_copied++;
 
 			if (d_copied == d_pkt_spl_num) {
-				dout << d_copied << " samples sent." << std::endl;
+				//dout << d_copied << " samples sent." << std::endl;
 				d_copied = 0;
 				d_state = COPY;
 				break;
@@ -201,7 +203,7 @@ int zigbee_reeler_medium_impl::high_low(float *buf) {
 		correlation += buf[i] * HALF_SIN[i];
 	}
 
-	dout << "correlation: " << correlation << std::endl;
+	//dout << "correlation: " << correlation << std::endl;
 
 	if (correlation >= COR_THRESHOLD) {
 		return 1;

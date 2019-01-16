@@ -31,6 +31,93 @@
 using namespace gr::wifi_zigbee;
 using namespace std;
 
+/*
+static const std::vector<float> p_real_1 = {
+
+
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+
+};
+
+static const std::vector<float> p_real_2 = {
+
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+
+};
+
+static const std::vector<float> p_img_1 = {
+
+0, 0, 0, 0, 0,
+0, 0, 0, 0, 0,
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+
+};
+
+static const std::vector<float> p_img_2 = {
+
+0, 0, 0, 0, 0,
+0, 0, 0, 0, 0,
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
+-sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
+-sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
+-sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
+sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
+sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
+sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
+sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
+
+};
+*/
+
 eop_clearance_probe::sptr
 eop_clearance_probe::make(bool debug, unsigned int threshold)
 {
@@ -94,6 +181,7 @@ eop_clearance_probe_impl::general_work (int noutput_items,
       const pmt::pmt_t key = pmt::string_to_symbol("signal end");
       get_tags_in_range(d_tags, 0, nread, nread + ninput + 1, key);
       if (d_tags.size()) {
+    	  //dout << "Tag found." << std::endl;
     	  d_tag_state = EOP_FOUND;
     	  std::sort(d_tags.begin(), d_tags.end(), gr::tag_t::offset_compare);
 
@@ -105,6 +193,8 @@ eop_clearance_probe_impl::general_work (int noutput_items,
       }
 
       int i = 0;
+      //float sum_real = 0;
+      //float sum_img = 0;
 
       switch (d_state) {
       case SEARCH:
@@ -131,7 +221,7 @@ eop_clearance_probe_impl::general_work (int noutput_items,
 
 	  case DETERMINE:
 
-		  //dout << "DETERMINE." << std::endl;
+		  dout << "DETERMINE." << std::endl;
 
 		  d_mix_pattern = find_mix_pattern(d_buf_real, d_buf_img, d_cnt);
 		  d_state = COPY;
@@ -143,6 +233,15 @@ eop_clearance_probe_impl::general_work (int noutput_items,
 			  insert_tag(2, nitems_written(2), d_cnt, "signal start");
 			  insert_tag(3, nitems_written(3), d_cnt, "signal start");
 		  }
+
+			/*for (int temp = 0; temp < 80; temp++) {
+			   sum_real += p_real_1[temp] * p_real_2[temp];
+			   sum_img += p_img_1[temp] * p_img_2[temp];
+			}
+
+		   dout << "sum_real: " << sum_real << std::endl;
+		   dout << "sum_img: " << sum_img << std::endl;
+			*/
 
 		  consume_each(0);
 		  return 0;
@@ -204,8 +303,8 @@ eop_clearance_probe_impl::general_work (int noutput_items,
 
 short eop_clearance_probe_impl::find_mix_pattern(float *buf_real, float *buf_img, unsigned long length) {
 	short mix_pattern;
-	int correlation_real = 0;
-	int correlation_img = 0;
+	float correlation_real = 0;
+	float correlation_img = 0;
 	int m = 0;
 	//enum {WIFI_SHORT_MEDIUM, WIFI_LONG} mix_pattern;
 
@@ -215,12 +314,14 @@ short eop_clearance_probe_impl::find_mix_pattern(float *buf_real, float *buf_img
 		m++;
 	}
 
-	if (abs(correlation_real) > d_threshold && abs(correlation_img) > d_threshold) {
+	if (abs(correlation_real) * 10 > d_threshold && abs(correlation_img) * 10 > d_threshold) { // (* 5) fo 25 cm distance; (* 10) for 1 m distance
 		mix_pattern = 0;
 	}
 	else {
 		mix_pattern = 1;
 	}
+
+	dout << "abs(correlation_real): " << abs(correlation_real) << "abs(correlation_img): " << abs(correlation_img) << std::endl;
 
 	return mix_pattern;
 }

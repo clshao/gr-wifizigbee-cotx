@@ -227,7 +227,7 @@ int hdr_clearance_probe_impl::fft_80(gr_complex *time) {
 			freq[index] += time[element] * gr_complex(cos(2*M_PI*element*index/80), -sin(2*M_PI*element*index/80));
 		}
 
-		if ((abs(freq[index] / gr_complex(80, 0)) * 5) >= d_pwr_threshold) {
+		if ((abs(freq[index] / gr_complex(80, 0)) * 20) >= d_pwr_threshold * 0.5) { // (* 1.5) for 25 cm distance; (* 0.5) for 1 m distance
 			num++;
 		}
 

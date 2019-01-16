@@ -99,6 +99,8 @@ zigbee_reeler_long_impl::general_work (int noutput_items,
 			ninput = offset - nread;
 		} else {
 			d_length = pmt::to_long(d_tags.front().value);
+			dout << "ZigBee packet is received." << std::endl;
+			dout << "Wi-Fi packet is received." << std::endl;
 		}
 	}
 
@@ -243,7 +245,7 @@ double zigbee_reeler_long_impl::amp_i_measure(float *buf) {
 
 	//dout << "sum_buf_i: " << sum_buf << std::endl;
 	//dout << "sum_pattern_i: " << sum_pattern << std::endl;
-	dout << "amp_i: " << amp << std::endl;
+	//dout << "amp_i: " << amp << std::endl;
 
 	return amp;
 }
@@ -338,7 +340,7 @@ double zigbee_reeler_long_impl::amp_q_measure(float *buf) {
 
 	//dout << "sum_buf_q: " << sum_buf << std::endl;
 	//dout << "sum_pattern_q: " << sum_pattern << std::endl;
-	dout << "amp_q: " << amp << std::endl;
+	//dout << "amp_q: " << amp << std::endl;
 
 	return amp;
 }

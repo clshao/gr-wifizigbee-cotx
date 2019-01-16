@@ -88,6 +88,7 @@ zigbee_reeler_short_impl::general_work (int noutput_items,
 	int ninput = std::min(ninput_items[0], ninput_items[1]);
 	int noutput = noutput_items;
 
+
 	const uint64_t nread = nitems_read(0);
 	get_tags_in_range(d_tags, 0, nread, nread + ninput);
 	if (d_tags.size()) {
@@ -99,6 +100,8 @@ zigbee_reeler_short_impl::general_work (int noutput_items,
 			ninput = offset - nread;
 		} else {
 			d_length = pmt::to_long(d_tags.front().value);
+			dout << "ZigBee packet is received." << std::endl;
+			dout << "Wi-Fi packet is received." << std::endl;
 		}
 	}
 
@@ -132,8 +135,8 @@ zigbee_reeler_short_impl::general_work (int noutput_items,
 			d_amp_q += abs_max(d_buf_img + ZIGBEE_HDR_SAMPLE + 20 * index);
 		}
 
-		dout << "amp_i: " << d_amp_i / 10 << std::endl;
-		dout << "amp_q: " << d_amp_q / 10 << std::endl;
+		//dout << "amp_i: " << d_amp_i / 10 << std::endl;
+		//dout << "amp_q: " << d_amp_q / 10 << std::endl;
 
 		make_zigbee_header(d_zigbee_hdr, d_amp_i / 10, d_amp_q / 10);
 		d_pkt_spl_num = make_packet(d_zigbee, d_wifi, d_cnt);
@@ -156,7 +159,7 @@ zigbee_reeler_short_impl::general_work (int noutput_items,
 			d_copied++;
 
 			if (d_copied == d_pkt_spl_num) {
-				dout << d_copied << " samples sent." << std::endl;
+				//dout << d_copied << " samples sent." << std::endl;
 				d_copied = 0;
 				d_pkt_spl_num = 0;
 				d_state = COPY;
