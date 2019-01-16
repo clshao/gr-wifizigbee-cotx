@@ -33,21 +33,18 @@ namespace gr {
     {
      private:
       bool d_debug;
-
-      unsigned int d_preamble_spl_cnt;
       unsigned int d_threshold;
       unsigned int d_preamble_peak_cnt;
+      float d_correlation;
       unsigned long d_pkt_index;
+      unsigned int d_cnt;
       unsigned d_offset;
       unsigned int d_copy;
-      float d_preamble_buf_real[80];
-      float d_preamble_buf_img[80];
       float d_register_real[80];
       float d_register_img[80];
       enum {SEARCH, FIND, COPY} d_state;
       enum {EOP_NOT_FOUND, EOP_FOUND} d_eop_state;
-      static const std::vector<float> REAL_CORRELATION;
-      static const std::vector<float> IMG_CORRELATION;
+      static const std::vector<float> HALF_SIN;
 
      public:
 
@@ -56,7 +53,6 @@ namespace gr {
       ~preamble_sync_impl();
 
       void forecast (int noutput_items, gr_vector_int &ninput_items_required);
-      int make_correlation(float *buf_real, float *buf_img);
       void insert_tag(unsigned int out_index, uint64_t item, long pkt_index, string str);
       int find_zero_padding(float *buf_real, float *buf_img);
 

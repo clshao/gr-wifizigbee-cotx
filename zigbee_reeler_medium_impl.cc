@@ -132,7 +132,7 @@ zigbee_reeler_medium_impl::general_work (int noutput_items,
 
 		d_amp_i = abs_max(d_buf_real + d_cnt - 80);
 		d_amp_q = abs_max(d_buf_img + d_cnt - 80);
-		//Amplitude estimation method to be enhanced.
+			//Amplitude estimation method to be enhanced.
 
 		dout << "amp_i: " << d_amp_i << std::endl;
 		dout << "amp_q: " << d_amp_q << std::endl;
@@ -201,7 +201,7 @@ int zigbee_reeler_medium_impl::high_low(float *buf) {
 		correlation += buf[i] * HALF_SIN[i];
 	}
 
-	//dout << "correlation: " << correlation << std::endl;
+	dout << "correlation: " << correlation << std::endl;
 
 	if (correlation >= COR_THRESHOLD) {
 		return 1;

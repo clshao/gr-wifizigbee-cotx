@@ -158,7 +158,6 @@ zigbee_reeler_long_impl::general_work (int noutput_items,
 			d_copied++;
 
 			if (d_copied == d_pkt_spl_num) {
-				dout << d_copied << " samples sent." << std::endl;
 				d_copied = 0;
 				d_state = COPY;
 				break;

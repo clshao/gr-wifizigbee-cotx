@@ -30,9 +30,9 @@
 using namespace gr::wifi_zigbee;
 using namespace std;
 
-static const int PREAMBLE_PEAK_CNT = 5;
-static const float EOP_DETECTION_THRESHOLD = 2;
-static const int ZERO_CNT_LIMIT = 75;
+static const int PREAMBLE_PEAK_CNT = 2;
+static const int EOP_DETECTION_THRESHOLD = 1;
+static const int ZERO_CNT_LIMIT = 65;
 //static const int MAX_SAMPLES = 540 * 80; //According to maximum WiFi payload length
 //static const int MIN_GAP = 200 * 20; //According to ZigBee preamble and Length field
 
@@ -48,10 +48,11 @@ preamble_sync_impl::preamble_sync_impl(bool debug, unsigned int threshold)
 		  gr::io_signature::make(4, 4, sizeof(float)),
 		  gr::io_signature::make(2, 2, sizeof(float))),
 		  d_debug(debug),
-		  d_preamble_spl_cnt(0),
 		  d_threshold(threshold),
 		  d_preamble_peak_cnt(0),
+		  d_correlation(0),
 		  d_pkt_index(0),
+		  d_cnt(0),
 		  d_offset(0),
 		  d_copy(0),
 		  d_state(SEARCH),
@@ -110,48 +111,7 @@ preamble_sync_impl::general_work (int noutput_items,
 	  //dout << "Enter SEARCH." << std::endl;
 
 	  while (i < ninput) {
-		  if (d_preamble_spl_cnt < 80) {
-			  d_preamble_buf_real[d_preamble_spl_cnt] = in_real[i];
-			  d_preamble_buf_img[d_preamble_spl_cnt] = in_img[i];
-			  d_preamble_spl_cnt++;
-			  i++;
-
-			  if (d_preamble_spl_cnt == 80) {
-				  if (make_correlation(d_preamble_buf_real, d_preamble_buf_img)) {
-					  d_preamble_peak_cnt++;
-				  }
-			  }
-		  }
-		  else if (d_preamble_spl_cnt == 80) {
-			  float preamble_buf_real[79];
-			  float preamble_buf_img[79];
-
-			  std::memcpy(preamble_buf_real, d_preamble_buf_real + 1, 79 * sizeof(float));
-			  std::memcpy(d_preamble_buf_real, preamble_buf_real, 79 * sizeof(float));
-			  d_preamble_buf_real[79] = in_real[i];
-			  std::memcpy(preamble_buf_img, d_preamble_buf_img + 1, 79 * sizeof(float));
-			  std::memcpy(d_preamble_buf_img, preamble_buf_img, 79 * sizeof(float));
-			  d_preamble_buf_img[79] = in_img[i];
-			  i++;
-
-			  if (make_correlation(d_preamble_buf_real, d_preamble_buf_img)) {
-				  d_preamble_peak_cnt++;
-				  if (d_preamble_peak_cnt == PREAMBLE_PEAK_CNT) {
-					  d_pkt_index++;
-					  d_state = FIND;
-					  d_preamble_peak_cnt = 0;
-					  d_preamble_spl_cnt = 0;
-					  insert_tag(0, nitems_written(0), d_pkt_index, "signal start");
-					  insert_tag(1, nitems_written(1), d_pkt_index, "signal start");
-					  dout << "Signal found!" << std::endl;
-					  break;
-				  }
-			  }
-		  }
-	  }
-
-
-/*		  d_correlation += in_real[i] * HALF_SIN[d_cnt % 20];
+		  d_correlation += in_real[i] * HALF_SIN[d_cnt % 20];
 		  i++;
 		  d_cnt++;
 		  if (d_cnt % 20 == 0) {
@@ -178,7 +138,7 @@ preamble_sync_impl::general_work (int noutput_items,
 			  }
 		  }
 	  }
-*/
+
 	  consume_each (i);
 	  return 0;
 
@@ -197,7 +157,6 @@ preamble_sync_impl::general_work (int noutput_items,
 			  d_state = COPY;
 			  if (zero_padding_offset != 80) {
 				  d_eop_state = EOP_FOUND;
-				  //dout << "d_offset - 80: " << d_offset - 80 << std::endl;
 				  /*for (int m = 0; m < 75; m++) {
 					  dout << d_register_real[m % 75] << " " << std::endl;
 				  }*/
@@ -205,7 +164,7 @@ preamble_sync_impl::general_work (int noutput_items,
 			  }
 			  else {
 				  d_eop_state = EOP_NOT_FOUND;
-				  //dout << d_offset << std::endl;
+				  dout << d_offset << std::endl;
 				  d_offset++;
 				  break;
 			  }
@@ -228,7 +187,6 @@ preamble_sync_impl::general_work (int noutput_items,
 	  case EOP_FOUND:
 
 		  dout << "EOP_FOUND!" << std::endl;
-		  dout << "d_offset: " << d_offset << std::endl;
 
 		  insert_tag(0, nitems_written(0), d_pkt_index, "signal end");
 		  insert_tag(1, nitems_written(1), d_pkt_index, "signal end");
@@ -261,23 +219,6 @@ preamble_sync_impl::general_work (int noutput_items,
   return 0;
 }
 
-int preamble_sync_impl::make_correlation(float *buf_real, float *buf_img) {
-	float sum_real = 0;
-	float sum_img = 0;
-
-	for (int temp = 0; temp < 80; temp++) {
-		sum_real += buf_real[temp] * REAL_CORRELATION[temp];
-		sum_img += buf_img[temp] * IMG_CORRELATION[temp];
-	}
-
-	dout << "sum_real: " << sum_real << std::endl;
-	dout << "sum_img: " << sum_img << std::endl;
-
-	if ((sum_real > d_threshold) && (sum_img > d_threshold - 140)) {
-		return 1;
-	} else return 0;
-}
-
 void preamble_sync_impl::insert_tag(unsigned int out_index, uint64_t item, long pkt_index, string str) {
 	const pmt::pmt_t key = pmt::string_to_symbol(str);
 	const pmt::pmt_t value = pmt::from_long(pkt_index);
@@ -300,47 +241,12 @@ int preamble_sync_impl::find_zero_padding(float *buf_real, float *buf_img) {
 
 }
 
-const std::vector<float> preamble_sync_impl::REAL_CORRELATION = {
+const std::vector<float> preamble_sync_impl::HALF_SIN = {
 
-sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
-sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
-sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
-sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
--sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
--sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
--sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
--sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
-sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
-sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
-sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
-sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
--sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
--sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
--sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
--sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
-
-};
-
-const std::vector<float> preamble_sync_impl::IMG_CORRELATION = {
-
-0, 0, 0, 0, 0,
-0, 0, 0, 0, 0,
-sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
-sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
-sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
-sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
-sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
-sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
--sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20), -sin(4*M_PI/20),
--sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20), -sin(8*M_PI/20), -sin(9*M_PI/20),
--sin(10*M_PI/20), -sin(11*M_PI/20), -sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20),
--sin(15*M_PI/20), -sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
 sin(0*M_PI/20), sin(1*M_PI/20), sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20),
 sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
 sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20), sin(14*M_PI/20),
 sin(15*M_PI/20), sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
 
 };
-
-
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<?grc format='1' created='3.7.10'?>
+<?grc format='1' created='3.7.11'?>
 <flow_graph>
   <timestamp>Wed Jun 21 10:46:29 2017</timestamp>
   <block>
@@ -46,7 +46,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>wifi_zigbee_cotx_enhanced</value>
+      <value>wifi_zigbee_cotx</value>
     </param>
     <param>
       <key>max_nouts</key>
@@ -372,7 +372,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -498,7 +498,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -678,7 +678,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -804,7 +804,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -1043,7 +1043,7 @@
     </param>
     <param>
       <key>delay</key>
-      <value>79</value>
+      <value>60</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1098,7 +1098,7 @@
     </param>
     <param>
       <key>delay</key>
-      <value>79</value>
+      <value>60</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -2972,7 +2972,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -2996,11 +2996,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>100</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>170 + 800</value>
+      <value>960</value>
     </param>
   </block>
   <block>
@@ -3055,11 +3055,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>90</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>170 + 10320</value>
+      <value>960 + 10320</value>
     </param>
   </block>
   <block>
@@ -3090,7 +3090,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -3114,11 +3114,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>80</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>600</value>
+      <value>500</value>
     </param>
   </block>
   <block>
@@ -3141,7 +3141,7 @@
     </param>
     <param>
       <key>delay_sec</key>
-      <value>0.01</value>
+      <value>0.010</value>
     </param>
     <param>
       <key>delay</key>
@@ -3149,7 +3149,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -3173,11 +3173,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>100</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>170</value>
+      <value>160</value>
     </param>
   </block>
   <block>
@@ -3232,11 +3232,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>90</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>170</value>
+      <value>160</value>
     </param>
   </block>
   <block>
@@ -3267,7 +3267,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -3291,11 +3291,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>80</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>1080</value>
+      <value>980</value>
     </param>
   </block>
   <block>
@@ -3350,11 +3350,11 @@
     </param>
     <param>
       <key>pad_front</key>
-      <value>80</value>
+      <value>0</value>
     </param>
     <param>
       <key>pad_tail</key>
-      <value>600</value>
+      <value>500</value>
     </param>
   </block>
   <block>
@@ -5743,7 +5743,7 @@
     </param>
     <param>
       <key>debug</key>
-      <value>False</value>
+      <value>True</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -5771,7 +5771,7 @@
     </param>
     <param>
       <key>threshold</key>
-      <value>150</value>
+      <value>5</value>
     </param>
   </block>
   <block>
@@ -5876,7 +5876,7 @@
     </param>
     <param>
       <key>debug</key>
-      <value>True</value>
+      <value>False</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -5949,6 +5949,12 @@
   <connection>
     <source_block_id>blocks_add_xx_0</source_block_id>
     <sink_block_id>blocks_complex_to_float_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_add_xx_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -6454,12 +6460,6 @@
     <source_block_id>wifi_zigbee_zigbee_reeler_long_0_0</source_block_id>
     <sink_block_id>blocks_stream_to_streams_0_0_0</sink_block_id>
     <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>wifi_zigbee_zigbee_reeler_medium_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0_0_0</sink_block_id>
-    <source_key>1</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
