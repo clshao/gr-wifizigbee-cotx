@@ -1,0 +1,58 @@
+<block>
+  <name>Preamble Sync</name>
+  <key>wifi_zigbee_preamble_sync</key>
+  <category>[WIFI_ZIGBEE]</category>
+  <import>import wifi_zigbee</import>
+  <make>wifi_zigbee.preamble_sync($debug, $threshold)</make>
+  <param>
+    <name>Debug</name>
+    <key>debug</key>
+    <value>False</value>
+    <type>bool</type>
+    
+    <option>
+	<name>Enable</name>
+	<key>True</key>
+    </option>
+    <option>
+	<name>Disable</name>
+	<key>False</key>
+    </option>
+
+  </param>
+  <param>
+    <name>Threshold</name>
+    <key>threshold</key>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in_real</name>
+    <type>float</type>
+    <nports>1</nports>
+  </sink>
+  <sink>
+    <name>in_img</name>
+    <type>float</type>
+    <nports>1</nports>
+  </sink>
+  <sink>
+    <name>in_delay_real</name>
+    <type>float</type>
+    <nports>1</nports>
+  </sink>
+  <sink>
+    <name>in_delay_img</name>
+    <type>float</type>
+    <nports>1</nports>
+  </sink>
+  <source>
+    <name>out_real</name>
+    <type>float</type>
+    <nports>1</nports>
+  </source>
+  <source>
+    <name>out_img</name>
+    <type>float</type>
+    <nports>1</nports>
+  </source>
+</block>
