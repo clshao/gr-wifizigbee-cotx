@@ -180,7 +180,7 @@ double zigbee_reeler_long_impl::amp_i_measure(float *buf) {
 	double sum_pattern = 0;
 	std::vector<double> pattern = {
 
-	/*The 2nd-4th parts out of 10 repeated sample sets in STF.
+	/*The 2nd-4th parts out of 10 repeated sample sets in the STF.
 	sin(16*M_PI/20), sin(17*M_PI/20), sin(18*M_PI/20), sin(19*M_PI/20),
 	-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20),
 	-sin(4*M_PI/20), -sin(5*M_PI/20), -sin(6*M_PI/20), -sin(7*M_PI/20),
@@ -198,7 +198,7 @@ double zigbee_reeler_long_impl::amp_i_measure(float *buf) {
 	-sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20), -sin(15*M_PI/20),
 	-sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),*/
 
-	//-1, -1, 1, -1, 1, 1, 1 (two repeated parts of LTF)
+	//-1, -1, 1, -1, 1, 1, 1 (two repeated parts of the LTF)
 	-sin(12*M_PI/20), -sin(13*M_PI/20), -sin(14*M_PI/20), -sin(15*M_PI/20),
 	-sin(16*M_PI/20), -sin(17*M_PI/20), -sin(18*M_PI/20), -sin(19*M_PI/20),
 	-sin(0*M_PI/20), -sin(1*M_PI/20), -sin(2*M_PI/20), -sin(3*M_PI/20),
@@ -255,7 +255,7 @@ double zigbee_reeler_long_impl::amp_q_measure(float *buf) {
 	double sum_pattern = 0;
 	std::vector<double> pattern = {
 
-	//1, -1, 1, 1, -1, -1, 1 (the last 8 repeated parts in STF)
+	//1, -1, 1, 1, -1, -1, 1 (the last 8 repeated parts in the STF)
 	sin(2*M_PI/20), sin(3*M_PI/20), sin(4*M_PI/20), sin(5*M_PI/20),
 	sin(6*M_PI/20), sin(7*M_PI/20), sin(8*M_PI/20), sin(9*M_PI/20),
 	sin(10*M_PI/20), sin(11*M_PI/20), sin(12*M_PI/20), sin(13*M_PI/20),
@@ -291,7 +291,7 @@ double zigbee_reeler_long_impl::amp_q_measure(float *buf) {
 	sin(8*M_PI/20), sin(9*M_PI/20),
 	};
 
-	/*1, -1, -1, -1, -1, 1, -1 (two repeated parts of LTF)
+	/*1, -1, -1, -1, -1, 1, -1 (two repeated parts of the LTF)
 	sin(2*M_PI/20), sin(3*M_PI/20),
 	sin(4*M_PI/20), sin(5*M_PI/20), sin(6*M_PI/20), sin(7*M_PI/20),
 	sin(8*M_PI/20), sin(9*M_PI/20), sin(10*M_PI/20), sin(11*M_PI/20),
