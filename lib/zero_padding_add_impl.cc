@@ -85,7 +85,6 @@ zero_padding_add_impl::general_work (int noutput_items,
 		else {
 			out[i] = gr_complex(0, 0);
 		}
-
 		i++;
 	}
 
